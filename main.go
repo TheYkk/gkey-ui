@@ -15,11 +15,11 @@ func genPP(this js.Value, inputs []js.Value) interface{} {
 	password := getElementByID("password")
 	secure := getElementByID("secure")
 
-	pass,err :=gkey.GenPass(realm.Get("value").String(),password.Get("value").String(),16)
-	if err !=nil {
+	pass, err := gkey.GenPass(password.Get("value").String(), realm.Get("value").String(), 16)
+	if err != nil {
 		fmt.Print(err)
 	}
-	secure.Set("value",pass)
+	secure.Set("value", pass)
 
 	return nil
 }
@@ -29,4 +29,3 @@ func main() {
 	js.Global().Set("genPP", js.FuncOf(genPP))
 	<-make(chan bool)
 }
-
