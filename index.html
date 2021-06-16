@@ -1,184 +1,190 @@
 <!doctype html>
-<!--
-Copyright 2018 The Go Authors. All rights reserved.
-Use of this source code is governed by a BSD-style
-license that can be found in the LICENSE file.
--->
-<html>
-
+<html lang="en-US">
 <head>
-	<meta charset="utf-8">
-	<title>Go wasm</title>
-  <style>
-    @import url("https://fonts.googleapis.com/css?family=Nunito");
-body {
-  font-family: 'Nunito', sans-serif;
-  background-color: #262936;
-  margin: 0;
-  height: 100vh;
-}
+    <meta charset="utf-8">
+    <title>Gkey Password Generator</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Nunito");
 
-.wrapper {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.wrapper .content {
-  background-color: #292C3A;
-  padding: 30px 15px;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 500px;
-  min-width: 200px;
-}
-.wrapper .content button {
-  padding: 15px;
-  width: 150px;
-  border: unset;
-  background: #262936;
-  border-radius: 50px;
-  color: #333;
-  cursor: pointer;
-}
-.wrapper .content button:focus {
-  outline: none;
-}
-.wrapper .content header {
-  text-align: center;
-}
-.wrapper .content header h1 {
-  color: #fff;
-  margin-top: 0;
-  font-size: 230%;
-}
-.wrapper .content .login-form {
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.wrapper .content .login-form .input-group {
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px;
-  width: 100%;
-  max-width: 310px;
-}
-.wrapper .content .login-form .input-group input {
-  padding: 15px;
-  font-size: 13px;
-  border: 1px solid #262936;
-  background-color: #262936;
-  border-radius: 50px;
-  tranistion: background .5s;
-  color: #fff;
-  -webkit-tranistion: background .5s;
-}
-.wrapper .content .login-form .input-group input:focus {
-  outline: 0;
-}
-.wrapper .content .login-form .input-group label {
-  color: #999;
-  font-size: 12px;
-  margin-bottom: 3px;
-  margin-left: 16px;
-}
-.wrapper .content .login-form .input-group button {
-  background-color: #3f5bd8;
-  border: unset;
-  color: #fff;
-  align-self: center;
-  margin-top: 15px;
-  transition: background .5s;
-  -webkit-transition: background .5s;
-}
-.wrapper .content .login-form .input-group button:hover {
-  background-color: #262936;
-}
-.wrapper .content footer {
-  padding-top: 15px;
-  text-align: center;
-}
-.wrapper .content footer a {
-  color: #999;
-  text-decoration: none;
-  font-size: 11px;
-}
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #262936;
+            margin: 0;
+            height: 100vh;
+        }
 
-@media screen and (max-width: 720px) {
-  .wrapper .content {
-    padding-right: 0;
-    padding-left: 0;
-    margin: 0 10px;
-  }
-}
+        .wrapper {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-  </style>
+        .wrapper .content {
+            background-color: #292C3A;
+            padding: 30px 15px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            min-width: 200px;
+        }
 
-  <script src="wasm_exec.js"></script>
-  <script>
-    if (!WebAssembly.instantiateStreaming) { // polyfill
-      WebAssembly.instantiateStreaming = async (resp, importObject) => {
-        const source = await (await resp).arrayBuffer();
-        return await WebAssembly.instantiate(source, importObject);
-      };
-    }
+        .wrapper .content button {
+            padding: 15px;
+            width: 150px;
+            border: unset;
+            background: #262936;
+            border-radius: 50px;
+            color: #333;
+            cursor: pointer;
+        }
 
-    const go = new Go();
-    let mod, inst;
-    WebAssembly.instantiateStreaming(fetch("test.wasm"), go.importObject).then((result) => {
-      mod = result.module;
-      inst = result.instance;
-      console.log(mod,inst);
-      go.run(inst).then(()=>{
-        inst = WebAssembly.instantiate(mod, go.importObject);
-      });
-    }).catch((err) => {
-      console.error(err);
-    });
+        .wrapper .content button:focus {
+            outline: none;
+        }
 
+        .wrapper .content header {
+            text-align: center;
+        }
 
+        .wrapper .content header h1 {
+            color: #fff;
+            margin-top: 0;
+            font-size: 230%;
+        }
 
+        .wrapper .content .login-form {
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
+        .wrapper .content .login-form .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 310px;
+        }
 
-  </script>
+        .wrapper .content .login-form .input-group input {
+            padding: 15px;
+            font-size: 13px;
+            border: 1px solid #262936;
+            background-color: #262936;
+            border-radius: 50px;
+            tranistion: background .5s;
+            color: #fff;
+            -webkit-tranistion: background .5s;
+        }
+
+        .wrapper .content .login-form .input-group input:focus {
+            outline: 0;
+        }
+
+        .wrapper .content .login-form .input-group label {
+            color: #999;
+            font-size: 12px;
+            margin-bottom: 3px;
+            margin-left: 16px;
+        }
+
+        .wrapper .content .login-form .input-group button {
+            background-color: #3f5bd8;
+            border: unset;
+            color: #fff;
+            align-self: center;
+            margin-top: 15px;
+            transition: background .5s;
+            -webkit-transition: background .5s;
+        }
+
+        .wrapper .content .login-form .input-group button:hover {
+            background-color: #262936;
+        }
+
+        .wrapper .content footer {
+            padding-top: 15px;
+            text-align: center;
+        }
+
+        .wrapper .content footer a {
+            color: #999;
+            text-decoration: none;
+            font-size: 11px;
+        }
+
+        @media screen and (max-width: 720px) {
+            .wrapper .content {
+                padding-right: 0;
+                padding-left: 0;
+                margin: 0 10px;
+            }
+        }
+
+    </style>
+
+    <script src="wasm_exec.js"></script>
+    <script>
+        if (!WebAssembly.instantiateStreaming) { // polyfill
+            WebAssembly.instantiateStreaming = async (resp, importObject) => {
+                const source = await (await resp).arrayBuffer();
+                return await WebAssembly.instantiate(source, importObject);
+            };
+        }
+
+        const go = new Go();
+        let mod, inst;
+        WebAssembly.instantiateStreaming(fetch("test.wasm"), go.importObject).then((result) => {
+            mod = result.module;
+            inst = result.instance;
+            console.log(mod, inst);
+            go.run(inst).then(() => {
+                inst = WebAssembly.instantiate(mod, go.importObject);
+            });
+        }).catch((err) => {
+            console.error(err);
+        });
+    </script>
 </head>
 
 <body>
 <section class="wrapper">
-  <div class="content">
-    <header>
-      <h1>Welcome back</h1>
-    </header>
-    <section>
-      <form onsubmit="return false;" class="login-form" id="login-form">
-        <div class="input-group">
-          <label for="password">Master Password</label>
-          <input type="password" autocomplete="off" placeholder="Master Password" id="password">
-        </div>
-        <div class="input-group">
-          <label for="realm">Realm</label>
-          <input type="text" autocomplete="off" placeholder="Realm" id="realm">
-        </div>
-        <div class="input-group"><button>Generate</button></div>
-        <div class="input-group">
-          <label for="secure">Secure PASSWORD</label>
-          <input type="text" readonly id="secure">
-        </div>
-      </form>
-    </section>
-  </div>
+    <div class="content">
+        <header>
+            <h1>Gkey Password Generator</h1>
+        </header>
+        <section>
+            <form onsubmit="return false;" class="login-form" id="login-form">
+                <div class="input-group">
+                    <label for="password">Master Password</label>
+                    <input type="password" autocomplete="off" placeholder="Master Password" id="password">
+                </div>
+                <div class="input-group">
+                    <label for="realm">Realm</label>
+                    <input type="text" autocomplete="off" placeholder="Realm" id="realm">
+                </div>
+                <div class="input-group">
+                    <button>Generate</button>
+                </div>
+                <div class="input-group">
+                    <label for="secure">Secure PASSWORD</label>
+                    <input type="text" readonly id="secure">
+                </div>
+            </form>
+        </section>
+    </div>
 </section>
 
 <script src="wasm_exec.js"></script>
 <script>
 
-  document.getElementById("login-form").addEventListener("submit", async (event) => {
-    event.preventDefault();
-    genPP();
-  });
+    document.getElementById("login-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        genPP();
+    });
 </script>
 </body>
 
